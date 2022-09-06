@@ -16,7 +16,7 @@ class OperationScreen extends StatelessWidget {
       body: SingleChildScrollView(
           child: Column(
         children: [
-          Container(
+          SizedBox(
             height: 230,
             width: double.infinity,
             child: Image(

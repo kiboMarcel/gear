@@ -1,12 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gear/presentations/widgets/class_card.dart';
 
-import '../../constants/urls.dart';
 import '../../data/models/equipement.dart';
+import '../../logics/cubits/category/category_cubit.dart';
 import '../../utils/dimensions.dart';
-import '../widgets/card_widget.dart';
-import 'operation_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -24,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     _scrollController = ScrollController();
     super.initState();
+    //context.read<CategoryCubit>().getClasse();
   }
 
   @override
@@ -63,10 +62,24 @@ class _HomeScreenState extends State<HomeScreen> {
             height: Dimensions.height15,
           ),
           Expanded(
-            child: ListView.builder(
-                controller: _scrollController,
-                itemCount: 20,
-                itemBuilder: (context, index) {
+            child: GridView.custom(
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10),
+              controller: _scrollController,
+              childrenDelegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  return ClassCard(
+                    name: 'Cat ${index + 1}',
+                    icon: Icon(Icons.abc),
+                    onPressed: () {},
+                  );
+                },
+                childCount: 8,
+              ),
+
+              /* itemBuilder: (context, index) {
                   return Padding(
                     padding:
                         const EdgeInsets.symmetric(vertical: 1, horizontal: 3),
@@ -79,7 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                   );
-                }),
+                } */
+            ),
           )
         ],
       ),

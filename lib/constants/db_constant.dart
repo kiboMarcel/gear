@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+final catRef = FirebaseFirestore.instance.collection('language');
+
 final languageRef = FirebaseFirestore.instance.collection('language');
 
 final usersRef = FirebaseFirestore.instance.collection('subscriber');
