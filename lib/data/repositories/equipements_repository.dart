@@ -11,7 +11,7 @@ class EquipementRepository {
     required this.firebaseFirestore,
   });
 
-  Future<List<Equipement>> getBible({required String uid}) async {
+  Future<List<Equipement>> getEquipment({required String uid}) async {
     late List<Map<String, dynamic>> list = [];
     late List<Equipement> testamentList = [];
     try {

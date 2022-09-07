@@ -4,6 +4,8 @@ enum SignStatus { initial, submiting, success, error }
 
 enum CategoryStatus { loading, loaded, error }
 
+enum EquipFunctionStatus { loading, loaded, error }
+
 enum CountryStatus { inital, loading, loaded, error }
 
 enum ClasseStatus { loading, loaded, error }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ClassCard extends StatelessWidget {
+class CAtegoryCard extends StatelessWidget {
   final String name;
   final VoidCallback onPressed;
   final Widget icon;
   final Widget? lockIcon;
-  ClassCard(
+  CAtegoryCard(
       {Key? key,
       required this.name,
       required this.onPressed,

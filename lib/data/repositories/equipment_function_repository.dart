@@ -1,35 +1,35 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:gear/data/models/category.dart';
 
 import '../../constants/db_constant.dart';
 import '../models/custom_error.dart';
+import '../models/equipment_function.dart';
 
-class CategoryRepository {
+class EquipementFunctionRepository {
   final FirebaseFirestore firebaseFirestore;
 
-  CategoryRepository({
+  EquipementFunctionRepository({
     required this.firebaseFirestore,
   });
 
-  Future<List<Category>> getCategory() async {
+  Future<List<EquipmentFunction>> getEquipmentFunction(
+      {required String catName}) async {
     late List list = [];
-    late List<Category> categories = [];
+    late List<EquipmentFunction> functions = [];
     try {
-      final QuerySnapshot categoryDoc = await catRef.get();
-      if (categoryDoc.size > 0) {
-        /* final catData = Category.fromDoc(categoryDoc);
-        list.add(catData); */
-        list = categoryDoc.docs
+      final QuerySnapshot equipFunctionDoc =
+          await functionRef.where('cat_id', isEqualTo: catName).get();
+      if (equipFunctionDoc.size > 0) {
+        list = equipFunctionDoc.docs
             .map((doc) => {"id": doc.id, "data": doc.data()})
             .toList();
 
         for (var i = 0; i < list.length; i++) {
-          Category cat = Category.format(list[i]);
-          categories.add(cat);
+          EquipmentFunction cat = EquipmentFunction.format(list[i]);
+          functions.add(cat);
         }
 
-        print(categories);
-        return categories;
+        //print(functions);
+        return functions;
       }
 
       throw 'LIST NOT FOUND';
