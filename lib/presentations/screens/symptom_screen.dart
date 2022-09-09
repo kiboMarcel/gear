@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gear/logics/cubits/cause/cause_cubit.dart';
+import 'package:gear/presentations/screens/cause_screen.dart';
 
 import '../../constants/enums.dart';
 import '../../logics/cubits/symptom/symptom_cubit.dart';
@@ -74,15 +75,15 @@ class _SymptomScreenState extends State<SymptomScreen> {
                       return CardWidget(
                         icon: Icon(Icons.face),
                         onTap: () {
-                          print(state.symptomsByEquipemet[index].name);
-                          /* context.read<CauseCubit>().getCause(
-                              symptomName: state.equipments[index].name); */
-                          /*  Navigator.push(
+                          context.read<CauseCubit>().getCause(
+                              symptomName:
+                                  state.symptomsByEquipemet[index].name);
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SymptomScreen(),
+                              builder: (context) => CauseScreen(),
                             ),
-                          ); */
+                          );
                         },
                         text: state.symptomsByEquipemet[index].name,
                       );
@@ -98,7 +99,14 @@ class _SymptomScreenState extends State<SymptomScreen> {
                       return CardWidget(
                         icon: Icon(Icons.face),
                         onTap: () {
-                          print('holla');
+                          context.read<CauseCubit>().getCause(
+                              symptomName: state.symptomByFonction[index].name);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CauseScreen(),
+                            ),
+                          );
                         },
                         text: state.symptomByFonction[index].name,
                       );

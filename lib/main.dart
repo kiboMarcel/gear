@@ -7,10 +7,12 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'data/repositories/category_repository.dart';
+import 'data/repositories/cause_repository.dart';
 import 'data/repositories/equipements_repository.dart';
 import 'data/repositories/equipment_function_repository.dart';
 import 'data/repositories/symptom_repository.dart';
 import 'logics/cubits/category/category_cubit.dart';
+import 'logics/cubits/cause/cause_cubit.dart';
 import 'logics/cubits/equipement/equipement_cubit.dart';
 import 'logics/cubits/equipment_function/equipment_function_cubit.dart';
 import 'logics/cubits/symptom/symptom_cubit.dart';
@@ -66,6 +68,11 @@ class MyApp extends StatelessWidget {
             firebaseFirestore: FirebaseFirestore.instance,
           ),
         ),
+        RepositoryProvider<CauseRepository>(
+          create: (context) => CauseRepository(
+            firebaseFirestore: FirebaseFirestore.instance,
+          ),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -88,6 +95,11 @@ class MyApp extends StatelessWidget {
           BlocProvider<SymptomCubit>(
             create: (context) => SymptomCubit(
               symptomRepositpory: context.read<SymptomRepositpory>(),
+            ),
+          ),
+          BlocProvider<CauseCubit>(
+            create: (context) => CauseCubit(
+              causeRepository: context.read<CauseRepository>(),
             ),
           ),
         ],

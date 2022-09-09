@@ -21,7 +21,9 @@ class SymptomCubit extends Cubit<SymptomState> {
           equipementName: equipementName);
 
       emit(state.copyWith(
-          symptomStatus: SymptomStatus.loaded, symptomsByEquipemet: symptom));
+          symptomStatus: SymptomStatus.loaded,
+          symptomsByEquipemet: symptom,
+          symptomByFonction: []));
     } on CustomError catch (e) {
       emit(state.copyWith(symptomStatus: SymptomStatus.error, error: e));
     }
@@ -35,7 +37,9 @@ class SymptomCubit extends Cubit<SymptomState> {
           .getSymptomByFonction(fonctionName: fonctionName);
 
       emit(state.copyWith(
-          symptomStatus: SymptomStatus.loaded, symptomByFonction: symptom));
+          symptomStatus: SymptomStatus.loaded,
+          symptomByFonction: symptom,
+          symptomsByEquipemet: []));
     } on CustomError catch (e) {
       emit(state.copyWith(symptomStatus: SymptomStatus.error, error: e));
     }

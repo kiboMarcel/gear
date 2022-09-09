@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gear/utils/dimensions.dart';
 
 import '../widgets/big_card.dart';
+import '../widgets/big_text.dart';
 import 'equipment_screen.dart';
 import 'function_screen.dart';
 
@@ -28,8 +30,13 @@ class CategoryScreen extends StatelessWidget {
         actions: [],
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          BigTextWidget(
+            text: categoryName,
+          ),
+          SizedBox(
+            height: Dimensions.height45,
+          ),
           BigCard(
             name: 'MACHINES',
             image: 'assets/images/machine.jpg',

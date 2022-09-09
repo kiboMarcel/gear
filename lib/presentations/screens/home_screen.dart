@@ -92,7 +92,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         tag: 'categorie $index',
                         child: CAtegoryCard(
                           name: ' ${state.categories[index].name}',
-                          icon: Icon(Icons.abc),
+                          icon: Icon(
+                            Icons.category_outlined,
+                            size: 45,
+                          ),
                           onPressed: () {
                             Navigator.push(
                               context,
@@ -140,6 +143,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class MySearchDelegate extends SearchDelegate {
   @override
+  ThemeData appBarTheme(BuildContext context) {
+    return ThemeData(
+      appBarTheme: const AppBarTheme(
+        color: Color(0xFF3B4254),
+      ),
+    );
+  }
+
+  @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
         onPressed: () => close(context, null), icon: Icon(Icons.arrow_back));
@@ -167,6 +179,8 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Container();
+    return Container(
+      color: Color(0xFF3B4254),
+    );
   }
 }

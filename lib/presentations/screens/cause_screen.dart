@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../constants/enums.dart';
+import '../../logics/cubits/cause/cause_cubit.dart';
 import '../../utils/dimensions.dart';
+import '../widgets/big_text.dart';
 import '../widgets/break_down_widget.dart';
 
 class CauseScreen extends StatelessWidget {
@@ -36,17 +40,34 @@ class CauseScreen extends StatelessWidget {
         SizedBox(
           height: Dimensions.height20,
         ),
-        Expanded(
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              return BreakDonwCard(
-                icon: Icon(Icons.face),
-                onTap: () {},
-                text: 'cause',
+        BigTextWidget(
+          text: 'Causes',
+          size: 25,
+        ),
+        BlocConsumer<CauseCubit, CauseState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            if (state.causeStatus == CauseStatus.loading) {
+              return Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: Center(child: CircularProgressIndicator()));
+            } else if (state.causeStatus == CauseStatus.loaded) {
+              return Expanded(
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return BreakDonwCard(
+                      solution: state.causes[index].solution,
+                      icon: Icon(Icons.face),
+                      onTap: () {},
+                      text: state.causes[index].name,
+                    );
+                  },
+                  itemCount: state.causes.length,
+                ),
               );
-            },
-            itemCount: 1,
-          ),
+            }
+            return Container();
+          },
         ),
       ]),
     );

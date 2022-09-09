@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gear/constants/enums.dart';
 import 'package:gear/logics/cubits/equipment_function/equipment_function_cubit.dart';
 
+import '../../logics/cubits/symptom/symptom_cubit.dart';
 import '../../utils/dimensions.dart';
 import '../widgets/card_widget.dart';
+import 'symptom_screen.dart';
 
 class FunctionScreen extends StatefulWidget {
   final int index;
@@ -88,7 +90,17 @@ class _FunctionScreenState extends State<FunctionScreen> {
                     itemBuilder: (context, index) {
                       return CardWidget(
                         icon: Icon(Icons.abc),
-                        onTap: () {},
+                        onTap: () {
+                          context.read<SymptomCubit>().getSymptomByFonction(
+                              fonctionName:
+                                  state.equipmentFunctions[index].name);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SymptomScreen(),
+                            ),
+                          );
+                        },
                         text: state.equipmentFunctions[index].name,
                       );
                     },
