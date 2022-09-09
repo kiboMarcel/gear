@@ -13,7 +13,7 @@ class CategoryCubit extends Cubit<CategoryState> {
   CategoryCubit({required this.categoryRepository})
       : super(CategoryState.loading());
 
-  Future<void> getClasse() async {
+  Future<void> getCategories() async {
     emit(state.copyWith(categoryStatus: CategoryStatus.loading));
 
     try {

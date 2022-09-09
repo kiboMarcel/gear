@@ -9,9 +9,11 @@ import 'package:path_provider/path_provider.dart';
 import 'data/repositories/category_repository.dart';
 import 'data/repositories/equipements_repository.dart';
 import 'data/repositories/equipment_function_repository.dart';
+import 'data/repositories/symptom_repository.dart';
 import 'logics/cubits/category/category_cubit.dart';
 import 'logics/cubits/equipement/equipement_cubit.dart';
 import 'logics/cubits/equipment_function/equipment_function_cubit.dart';
+import 'logics/cubits/symptom/symptom_cubit.dart';
 import 'presentations/screens/breakdowns_screen.dart';
 import 'presentations/screens/home_screen.dart';
 import 'presentations/screens/operation_screen.dart';
@@ -59,6 +61,11 @@ class MyApp extends StatelessWidget {
             firebaseFirestore: FirebaseFirestore.instance,
           ),
         ),
+        RepositoryProvider<SymptomRepositpory>(
+          create: (context) => SymptomRepositpory(
+            firebaseFirestore: FirebaseFirestore.instance,
+          ),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -74,7 +81,14 @@ class MyApp extends StatelessWidget {
             ),
           ),
           BlocProvider<EquipementCubit>(
-            create: (context) => EquipementCubit(),
+            create: (context) => EquipementCubit(
+              equipementRepository: context.read<EquipementRepository>(),
+            ),
+          ),
+          BlocProvider<SymptomCubit>(
+            create: (context) => SymptomCubit(
+              symptomRepositpory: context.read<SymptomRepositpory>(),
+            ),
           ),
         ],
         child: GetMaterialApp(

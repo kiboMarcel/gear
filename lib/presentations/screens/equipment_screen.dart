@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gear/constants/enums.dart';
-import 'package:gear/logics/cubits/equipment_function/equipment_function_cubit.dart';
 
+import '../../constants/enums.dart';
+import '../../logics/cubits/equipement/equipement_cubit.dart';
+import '../../logics/cubits/symptom/symptom_cubit.dart';
 import '../../utils/dimensions.dart';
 import '../widgets/card_widget.dart';
+import 'symptom_screen.dart';
 
-class FunctionScreen extends StatefulWidget {
+class EquipmentScreen extends StatefulWidget {
   final int index;
   final String categoryName;
-  const FunctionScreen(
+  const EquipmentScreen(
       {Key? key, required this.categoryName, required this.index})
       : super(key: key);
 
   @override
-  State<FunctionScreen> createState() => _FunctionScreenState();
+  State<EquipmentScreen> createState() => _EquipmentScreenState();
 }
 
-class _FunctionScreenState extends State<FunctionScreen> {
+class _EquipmentScreenState extends State<EquipmentScreen> {
   @override
   void initState() {
-    context
-        .read<EquipmentFunctionCubit>()
-        .getEquipementfunctions(catName: widget.categoryName);
+    context.read<EquipementCubit>().getEquipement(catName: widget.categoryName);
     super.initState();
   }
 
@@ -69,30 +69,38 @@ class _FunctionScreenState extends State<FunctionScreen> {
               ),
               child: Center(
                   child: Text(
-                '${widget.categoryName} ',
+                '${widget.categoryName} / equipement',
                 style: TextStyle(fontSize: 20),
               )),
             ),
           ),
-          BlocConsumer<EquipmentFunctionCubit, EquipmentFunctionState>(
+          BlocConsumer<EquipementCubit, EquipementState>(
             listener: (context, state) {},
             builder: (context, state) {
-              if (state.equipFunctionStatus == EquipFunctionStatus.loading) {
+              if (state.equipmentStatus == EquipmentStatus.loading) {
                 return Container(
                     margin: EdgeInsets.only(top: Dimensions.height30),
                     child: CircularProgressIndicator());
-              } else if (state.equipFunctionStatus ==
-                  EquipFunctionStatus.loaded) {
+              } else if (state.equipmentStatus == EquipmentStatus.loaded) {
                 return Expanded(
                   child: ListView.builder(
                     itemBuilder: (context, index) {
                       return CardWidget(
-                        icon: Icon(Icons.abc),
-                        onTap: () {},
-                        text: state.equipmentFunctions[index].name,
+                        icon: Icon(Icons.face),
+                        onTap: () {
+                          context.read<SymptomCubit>().getSymptomByEquip(
+                              equipementName: state.equipments[index].name);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SymptomScreen(),
+                            ),
+                          );
+                        },
+                        text: state.equipments[index].name,
                       );
                     },
-                    itemCount: state.equipmentFunctions.length,
+                    itemCount: state.equipments.length,
                   ),
                 );
               }

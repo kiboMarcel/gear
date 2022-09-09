@@ -11,41 +11,28 @@ class EquipementRepository {
     required this.firebaseFirestore,
   });
 
-  Future<List<Equipement>> getEquipment({required String uid}) async {
+  Future<List<Equipement>> getEquipment({required String catName}) async {
     late List<Map<String, dynamic>> list = [];
-    late List<Equipement> testamentList = [];
+    late List<Equipement> equipementsList = [];
+
     try {
-      final DocumentSnapshot userDoc = await usersRef.doc(uid).get(); //GET USER
+      final QuerySnapshot equipDoc =
+          await equipementRef.where('cat_id', isEqualTo: catName).get();
 
-      if (userDoc.exists) {
-        final userData = userDoc.data() as Map<String, dynamic>?;
+      if (equipDoc.size > 0) {
+        list = equipDoc.docs
+            .map((doc) => {"id": doc.id, "data": doc.data()})
+            .toList();
 
-        final QuerySnapshot languageDoc = await languageRef
-            .where('name', isEqualTo: userData!['language'])
-            .get(); // GET LANGUAGE TO DISPLAY TO USER
-
-        dynamic languageData;
-        for (var language in languageDoc.docs) {
-          languageData = language;
+        for (var i = 0; i < list.length; i++) {
+          Equipement equipement = Equipement.format(list[i]);
+          equipementsList.add(equipement);
         }
 
-        final testamentDoc = await FirebaseFirestore.instance
-            .collection('language/${languageData.id}/bible')
-            .get(); // GET THE BIBLE TESTAMENTS
-
-        if (testamentDoc.size > 0) {
-          list = testamentDoc.docs.map((doc) => doc.data()).toList();
-          //Testament.format(list[1]);
-          for (var i = 0; i < list.length; i++) {
-            //Testament testament = Testament.format(list[i]);
-            // testamentList.add(testament);
-          }
-        }
-        //print('liste des testament ${testamentList.length}');
-        return testamentList;
+        return equipementsList;
       }
 
-      throw 'LIST NOT FOUND';
+      throw 'EQUIPEMENT NOT FOUND';
     } on FirebaseException catch (e) {
       throw CustomError(
         code: e.code,

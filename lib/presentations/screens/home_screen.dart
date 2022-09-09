@@ -7,6 +7,7 @@ import '../../constants/enums.dart';
 import '../../data/models/equipement.dart';
 import '../../logics/cubits/category/category_cubit.dart';
 import '../../utils/dimensions.dart';
+import 'category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     _scrollController = ScrollController();
     super.initState();
-    context.read<CategoryCubit>().getClasse();
+    context.read<CategoryCubit>().getCategories();
   }
 
   @override
@@ -96,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => FunctionScreen(
+                                builder: (context) => CategoryScreen(
                                   categoryName: state.categories[index].name,
                                   index: index,
                                 ),
