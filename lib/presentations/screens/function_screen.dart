@@ -11,8 +11,12 @@ import 'symptom_screen.dart';
 class FunctionScreen extends StatefulWidget {
   final int index;
   final String categoryName;
+  final String categoryId;
   const FunctionScreen(
-      {Key? key, required this.categoryName, required this.index})
+      {Key? key,
+      required this.categoryName,
+      required this.categoryId,
+      required this.index})
       : super(key: key);
 
   @override
@@ -24,7 +28,7 @@ class _FunctionScreenState extends State<FunctionScreen> {
   void initState() {
     context
         .read<EquipmentFunctionCubit>()
-        .getEquipementfunctions(catName: widget.categoryName);
+        .getEquipementfunctions(catName: widget.categoryId);
     super.initState();
   }
 

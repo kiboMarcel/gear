@@ -102,6 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               MaterialPageRoute(
                                 builder: (context) => CategoryScreen(
                                   categoryName: state.categories[index].name,
+                                  categoryId: state.categories[index].id,
                                   index: index,
                                 ),
                               ),

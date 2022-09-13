@@ -15,7 +15,7 @@ class CategoryRepository {
     late List list = [];
     late List<Category> categories = [];
     try {
-      final QuerySnapshot categoryDoc = await catRef.get();
+      final QuerySnapshot categoryDoc = await catRef.orderBy('name').get();
       if (categoryDoc.size > 0) {
         /* final catData = Category.fromDoc(categoryDoc);
         list.add(catData); */

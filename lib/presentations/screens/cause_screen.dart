@@ -21,7 +21,7 @@ class CauseScreen extends StatelessWidget {
         title: InkWell(
           onTap: () {},
           child: Text(
-            'App Name',
+            'Causes',
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -37,20 +37,16 @@ class CauseScreen extends StatelessWidget {
         ],
       ),
       body: Column(children: [
-        SizedBox(
-          height: Dimensions.height20,
-        ),
-        BigTextWidget(
-          text: 'Causes',
-          size: 25,
-        ),
         BlocConsumer<CauseCubit, CauseState>(
           listener: (context, state) {},
           builder: (context, state) {
             if (state.causeStatus == CauseStatus.loading) {
               return Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: Center(child: CircularProgressIndicator()));
+                margin: EdgeInsets.only(top: 20),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
             } else if (state.causeStatus == CauseStatus.loaded) {
               return Expanded(
                 child: ListView.builder(

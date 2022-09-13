@@ -11,8 +11,12 @@ import 'symptom_screen.dart';
 class EquipmentScreen extends StatefulWidget {
   final int index;
   final String categoryName;
+  final String categoryId;
   const EquipmentScreen(
-      {Key? key, required this.categoryName, required this.index})
+      {Key? key,
+      required this.categoryName,
+      required this.categoryId,
+      required this.index})
       : super(key: key);
 
   @override
@@ -22,7 +26,7 @@ class EquipmentScreen extends StatefulWidget {
 class _EquipmentScreenState extends State<EquipmentScreen> {
   @override
   void initState() {
-    context.read<EquipementCubit>().getEquipement(catName: widget.categoryName);
+    context.read<EquipementCubit>().getEquipement(catName: widget.categoryId);
     super.initState();
   }
 

@@ -9,7 +9,12 @@ import 'function_screen.dart';
 class CategoryScreen extends StatelessWidget {
   final int index;
   final String categoryName;
-  CategoryScreen({Key? key, required this.categoryName, required this.index})
+  final String categoryId;
+  CategoryScreen(
+      {Key? key,
+      required this.categoryName,
+      required this.categoryId,
+      required this.index})
       : super(key: key);
 
   @override
@@ -46,6 +51,7 @@ class CategoryScreen extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => EquipmentScreen(
                     categoryName: categoryName,
+                    categoryId: categoryId,
                     index: index,
                   ),
                 ),
@@ -61,6 +67,7 @@ class CategoryScreen extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => FunctionScreen(
                     categoryName: categoryName,
+                    categoryId: categoryId,
                     index: index,
                   ),
                 ),
