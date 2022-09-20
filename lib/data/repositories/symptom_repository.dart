@@ -52,8 +52,10 @@ class SymptomRepositpory {
     late List list;
     List<Symptom> symptomlist = [];
     try {
-      QuerySnapshot symptomDoc =
-          await symptomRef.where('function_id', isEqualTo: fonctionId).get();
+      QuerySnapshot symptomDoc = await symptomRef
+          .where('function_id', isEqualTo: fonctionId)
+          .orderBy('name')
+          .get();
 
       if (symptomDoc.size > 0) {
         list = symptomDoc.docs

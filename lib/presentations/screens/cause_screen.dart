@@ -62,7 +62,22 @@ class CauseScreen extends StatelessWidget {
                 ),
               );
             }
-            return Container();
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 50),
+                Image(
+                  image: AssetImage(
+                    'assets/images/empty.png',
+                  ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Rien a Afficher',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ],
+            );
           },
         ),
       ]),
