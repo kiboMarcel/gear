@@ -9,12 +9,12 @@ class CauseRepository {
 
   CauseRepository({required this.firebaseFirestore});
 
-  Future<List<Cause>> getCause({required String symptomName}) async {
+  Future<List<Cause>> getCause({required String symptomId}) async {
     late List list;
     List<Cause> causes = [];
     try {
       QuerySnapshot symptomDocs =
-          await causeRef.where('symptom_id', isEqualTo: symptomName).get();
+          await causeRef.where('symptom_id', isEqualTo: symptomId).get();
 
       if (symptomDocs.size > 0) {
         list = symptomDocs.docs

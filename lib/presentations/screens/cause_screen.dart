@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../constants/enums.dart';
 import '../../logics/cubits/cause/cause_cubit.dart';
 import '../../utils/dimensions.dart';
-import '../widgets/big_text.dart';
 import '../widgets/break_down_widget.dart';
 
 class CauseScreen extends StatelessWidget {
@@ -15,6 +14,7 @@ class CauseScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xFF3B4254),
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Color(0xFF3B4254),
         elevation: 0,
         centerTitle: true,

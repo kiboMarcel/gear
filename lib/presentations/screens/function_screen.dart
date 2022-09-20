@@ -6,6 +6,7 @@ import 'package:gear/logics/cubits/equipment_function/equipment_function_cubit.d
 import '../../logics/cubits/symptom/symptom_cubit.dart';
 import '../../utils/dimensions.dart';
 import '../widgets/card_widget.dart';
+import '../widgets/shimmer/card_widget_shimmer.dart';
 import 'symptom_screen.dart';
 
 class FunctionScreen extends StatefulWidget {
@@ -37,6 +38,7 @@ class _FunctionScreenState extends State<FunctionScreen> {
     return Scaffold(
       backgroundColor: Color(0xFF3B4254),
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Color(0xFF3B4254),
         elevation: 0,
         centerTitle: true,
@@ -84,35 +86,49 @@ class _FunctionScreenState extends State<FunctionScreen> {
             listener: (context, state) {},
             builder: (context, state) {
               if (state.equipFunctionStatus == EquipFunctionStatus.loading) {
-                return Container(
-                    margin: EdgeInsets.only(top: Dimensions.height30),
-                    child: CircularProgressIndicator());
+                return CardWidgetShimmer();
               } else if (state.equipFunctionStatus ==
                   EquipFunctionStatus.loaded) {
-                return Expanded(
-                  child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      return CardWidget(
-                        icon: Icon(Icons.abc),
-                        onTap: () {
-                          context.read<SymptomCubit>().getSymptomByFonction(
-                              fonctionName:
-                                  state.equipmentFunctions[index].name);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SymptomScreen(),
-                            ),
-                          );
-                        },
-                        text: state.equipmentFunctions[index].name,
-                      );
-                    },
-                    itemCount: state.equipmentFunctions.length,
-                  ),
-                );
+                if (state.equipmentFunctions.isNotEmpty) {
+                  return Expanded(
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return CardWidget(
+                          icon: Icon(Icons.build_rounded),
+                          onTap: () {
+                            context.read<SymptomCubit>().getSymptomByFonction(
+                                fonctionId: state.equipmentFunctions[index].id);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SymptomScreen(),
+                              ),
+                            );
+                          },
+                          text: state.equipmentFunctions[index].name,
+                        );
+                      },
+                      itemCount: state.equipmentFunctions.length,
+                    ),
+                  );
+                }
               }
-              return Container();
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 50),
+                  Image(
+                    image: AssetImage(
+                      'assets/images/empty.png',
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Rien a Afficher',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ],
+              );
             },
           )
         ],

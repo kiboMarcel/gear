@@ -24,7 +24,7 @@ class Cause extends Equatable {
       solution = element['data']['solution'];
       symptomeName = element['data']['symptom_id'];
     } catch (e) {
-      print(e);
+      rethrow;
     }
 
     return Cause(

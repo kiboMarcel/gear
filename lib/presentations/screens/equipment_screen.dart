@@ -6,6 +6,7 @@ import '../../logics/cubits/equipement/equipement_cubit.dart';
 import '../../logics/cubits/symptom/symptom_cubit.dart';
 import '../../utils/dimensions.dart';
 import '../widgets/card_widget.dart';
+import '../widgets/shimmer/card_widget_shimmer.dart';
 import 'symptom_screen.dart';
 
 class EquipmentScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class EquipmentScreen extends StatefulWidget {
 class _EquipmentScreenState extends State<EquipmentScreen> {
   @override
   void initState() {
-    context.read<EquipementCubit>().getEquipement(catName: widget.categoryId);
+    context.read<EquipementCubit>().getEquipement(catid: widget.categoryId);
     super.initState();
   }
 
@@ -35,6 +36,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
     return Scaffold(
       backgroundColor: Color(0xFF3B4254),
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Color(0xFF3B4254),
         elevation: 0,
         centerTitle: true,
@@ -61,54 +63,70 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
           SizedBox(
             height: Dimensions.height20,
           ),
-          Hero(
-            tag: 'categorie ${widget.index}',
-            child: Container(
-              height: 30,
-              width: Dimensions.screenWidth / 0.5,
-              margin: EdgeInsets.symmetric(vertical: 3, horizontal: 100),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
-                  child: Text(
-                '${widget.categoryName} / equipement',
-                style: TextStyle(fontSize: 20),
-              )),
+          Container(
+            height: 30,
+            width: Dimensions.screenWidth / 0.5,
+            margin: EdgeInsets.symmetric(vertical: 3, horizontal: 100),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
             ),
+            child: Center(
+                child: Text(
+              '${widget.categoryName} / equipement',
+              style: TextStyle(fontSize: 20),
+            )),
           ),
           BlocConsumer<EquipementCubit, EquipementState>(
             listener: (context, state) {},
             builder: (context, state) {
               if (state.equipmentStatus == EquipmentStatus.loading) {
-                return Container(
-                    margin: EdgeInsets.only(top: Dimensions.height30),
-                    child: CircularProgressIndicator());
+                return CardWidgetShimmer(); /* Container(
+                  margin: EdgeInsets.only(top: Dimensions.height30),
+                  child: CircularProgressIndicator(),
+                ); */
               } else if (state.equipmentStatus == EquipmentStatus.loaded) {
-                return Expanded(
-                  child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      return CardWidget(
-                        icon: Icon(Icons.face),
-                        onTap: () {
-                          context.read<SymptomCubit>().getSymptomByEquip(
-                              equipementName: state.equipments[index].name);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SymptomScreen(),
-                            ),
-                          );
-                        },
-                        text: state.equipments[index].name,
-                      );
-                    },
-                    itemCount: state.equipments.length,
-                  ),
-                );
+                if (state.equipments.isNotEmpty) {
+                  return Expanded(
+                    child: ListView.builder(
+                      cacheExtent: 0,
+                      itemBuilder: (context, index) {
+                        return CardWidget(
+                          icon: Icon(Icons.blur_on_rounded),
+                          onTap: () {
+                            context.read<SymptomCubit>().getSymptomByEquip(
+                                equipementid: state.equipments[index].id);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SymptomScreen(),
+                              ),
+                            );
+                          },
+                          text: state.equipments[index].name,
+                        );
+                      },
+                      itemCount: state.equipments.length,
+                    ),
+                  );
+                }
               }
-              return Container();
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 50),
+                  Image(
+                    image: AssetImage(
+                      'assets/images/empty.png',
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Rien a Afficher',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ],
+              );
             },
           )
         ],

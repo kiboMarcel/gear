@@ -13,11 +13,11 @@ class EquipementCubit extends Cubit<EquipementState> {
   EquipementCubit({required this.equipementRepository})
       : super(EquipementState.loading());
 
-  Future<void> getEquipement({required String catName}) async {
+  Future<void> getEquipement({required String catid}) async {
     emit(state.copyWith(equipmentStatus: EquipmentStatus.loading));
 
     final List<Equipement> equipements =
-        await equipementRepository.getEquipment(catName: catName);
+        await equipementRepository.getEquipment(catId: catid);
 
     emit(state.copyWith(
         equipmentStatus: EquipmentStatus.loaded, equipments: equipements));

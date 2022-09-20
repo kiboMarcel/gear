@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gear/presentations/screens/function_screen.dart';
 import 'package:gear/presentations/widgets/category_card.dart';
 
 import '../../constants/enums.dart';
 import '../../data/models/equipement.dart';
 import '../../logics/cubits/category/category_cubit.dart';
 import '../../utils/dimensions.dart';
+import '../widgets/shimmer/category_card_shimmer.dart';
 import 'category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -59,12 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            height: Dimensions.height10 - 5,
-          ),
-          SizedBox(
-            height: Dimensions.height15,
-          ),
           BlocConsumer<CategoryCubit, CategoryState>(
               listener: (context, state) {
             if (state.categoryStatus == CategoryStatus.error) {
@@ -72,9 +66,8 @@ class _HomeScreenState extends State<HomeScreen> {
             }
           }, builder: (context, state) {
             if (state.categoryStatus == CategoryStatus.loading) {
-              return Align(
-                alignment: Alignment.bottomCenter,
-                child: CircularProgressIndicator(),
+              return Expanded(
+                child: CategoryCardShimmer(),
               );
             } else if (state.categoryStatus == CategoryStatus.loaded) {
               return Expanded(
@@ -88,27 +81,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   controller: _scrollController,
                   childrenDelegate: SliverChildBuilderDelegate(
                     (context, index) {
-                      return Hero(
-                        tag: 'categorie $index',
-                        child: CAtegoryCard(
-                          name: ' ${state.categories[index].name}',
-                          icon: Icon(
-                            Icons.category_outlined,
-                            size: 45,
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CategoryScreen(
-                                  categoryName: state.categories[index].name,
-                                  categoryId: state.categories[index].id,
-                                  index: index,
-                                ),
-                              ),
-                            );
-                          },
+                      return CategoryCard(
+                        name: ' ${state.categories[index].name}',
+                        icon: Icon(
+                          Icons.category_outlined,
+                          size: 45,
                         ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CategoryScreen(
+                                categoryName: state.categories[index].name,
+                                categoryId: state.categories[index].id,
+                                index: index,
+                              ),
+                            ),
+                          );
+                        },
                       );
                     },
                     childCount: state.categories.length,

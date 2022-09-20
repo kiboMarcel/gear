@@ -19,7 +19,7 @@ class Category extends Equatable {
       id = element['id'];
       name = element['data']['name'];
     } catch (e) {
-      print(e);
+      throw '$e';
     }
 
     return Category(

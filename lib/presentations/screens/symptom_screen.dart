@@ -7,6 +7,7 @@ import '../../constants/enums.dart';
 import '../../logics/cubits/symptom/symptom_cubit.dart';
 import '../../utils/dimensions.dart';
 import '../widgets/card_widget.dart';
+import '../widgets/shimmer/card_widget_shimmer.dart';
 
 class SymptomScreen extends StatefulWidget {
   const SymptomScreen({super.key});
@@ -21,6 +22,7 @@ class _SymptomScreenState extends State<SymptomScreen> {
     return Scaffold(
       backgroundColor: Color(0xFF3B4254),
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: Color(0xFF3B4254),
         elevation: 0,
         centerTitle: true,
@@ -64,20 +66,18 @@ class _SymptomScreenState extends State<SymptomScreen> {
           listener: (context, state) {},
           builder: (context, state) {
             if (state.symptomStatus == SymptomStatus.loading) {
-              return Container(
-                  margin: EdgeInsets.only(top: Dimensions.height30),
-                  child: CircularProgressIndicator());
+              return CardWidgetShimmer();
             } else if (state.symptomStatus == SymptomStatus.loaded) {
               if (state.symptomsByEquipemet.isNotEmpty) {
                 return Expanded(
                   child: ListView.builder(
+                    cacheExtent: 0,
                     itemBuilder: (context, index) {
                       return CardWidget(
-                        icon: Icon(Icons.face),
+                        icon: Icon(Icons.flag_rounded),
                         onTap: () {
                           context.read<CauseCubit>().getCause(
-                              symptomName:
-                                  state.symptomsByEquipemet[index].name);
+                              symptomId: state.symptomsByEquipemet[index].id);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -100,7 +100,7 @@ class _SymptomScreenState extends State<SymptomScreen> {
                         icon: Icon(Icons.face),
                         onTap: () {
                           context.read<CauseCubit>().getCause(
-                              symptomName: state.symptomByFonction[index].name);
+                              symptomId: state.symptomByFonction[index].id);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -116,7 +116,22 @@ class _SymptomScreenState extends State<SymptomScreen> {
                 );
               }
             }
-            return Container();
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 50),
+                Image(
+                  image: AssetImage(
+                    'assets/images/empty.png',
+                  ),
+                ),
+                SizedBox(height: 20),
+                Text(
+                  'Rien a Afficher',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ],
+            );
           },
         ),
       ]),

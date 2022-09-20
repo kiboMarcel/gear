@@ -11,13 +11,13 @@ class EquipementRepository {
     required this.firebaseFirestore,
   });
 
-  Future<List<Equipement>> getEquipment({required String catName}) async {
+  Future<List<Equipement>> getEquipment({required String catId}) async {
     late List<Map<String, dynamic>> list = [];
     late List<Equipement> equipementsList = [];
 
     try {
       final QuerySnapshot equipDoc =
-          await equipementRef.where('cat_id', isEqualTo: catName).get();
+          await equipementRef.where('cat_id', isEqualTo: catId).get();
 
       if (equipDoc.size > 0) {
         list = equipDoc.docs
@@ -32,7 +32,7 @@ class EquipementRepository {
         return equipementsList;
       }
 
-      throw 'EQUIPEMENT NOT FOUND';
+      return equipementsList;
     } on FirebaseException catch (e) {
       throw CustomError(
         code: e.code,

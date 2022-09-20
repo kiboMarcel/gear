@@ -25,7 +25,7 @@ class Equipement extends Equatable {
       description = element['data']['description'];
       catId = element['data']['cat_id'];
     } catch (e) {
-      print(e);
+      rethrow;
     }
 
     return Equipement(

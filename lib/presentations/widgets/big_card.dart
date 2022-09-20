@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class BigCard extends StatelessWidget {
   final String name;
@@ -21,10 +20,6 @@ class BigCard extends StatelessWidget {
         child: Container(
           height: 200,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft,
-                colors: [Colors.blue, Colors.black]),
             borderRadius: BorderRadius.circular(10),
             image: DecorationImage(
                 image: AssetImage(
@@ -39,7 +34,7 @@ class BigCard extends StatelessWidget {
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.transparent, Color(0xEB141414)]),
+                    colors: [Colors.transparent, Color(0x55141414)]),
                 borderRadius: BorderRadius.circular(10),
               ),
             ),

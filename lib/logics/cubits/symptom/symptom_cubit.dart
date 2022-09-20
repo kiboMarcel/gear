@@ -13,12 +13,13 @@ class SymptomCubit extends Cubit<SymptomState> {
   SymptomCubit({required this.symptomRepositpory})
       : super(SymptomState.loading());
 
-  Future<void> getSymptomByEquip({required String equipementName}) async {
-    emit(state.copyWith(symptomStatus: SymptomStatus.loading));
+  Future<void> getSymptomByEquip({required String equipementid}) async {
+    emit(state.copyWith(
+        symptomStatus: SymptomStatus.loading, symptomsByEquipemet: []));
 
     try {
       final List<Symptom> symptom = await symptomRepositpory.getSymptomByEquip(
-          equipementName: equipementName);
+          equipementid: equipementid);
 
       emit(state.copyWith(
           symptomStatus: SymptomStatus.loaded,
@@ -29,12 +30,13 @@ class SymptomCubit extends Cubit<SymptomState> {
     }
   }
 
-  Future<void> getSymptomByFonction({required String fonctionName}) async {
-    emit(state.copyWith(symptomStatus: SymptomStatus.loading));
+  Future<void> getSymptomByFonction({required String fonctionId}) async {
+    emit(state
+        .copyWith(symptomStatus: SymptomStatus.loading, symptomByFonction: []));
 
     try {
-      final List<Symptom> symptom = await symptomRepositpory
-          .getSymptomByFonction(fonctionName: fonctionName);
+      final List<Symptom> symptom =
+          await symptomRepositpory.getSymptomByFonction(fonctionId: fonctionId);
 
       emit(state.copyWith(
           symptomStatus: SymptomStatus.loaded,

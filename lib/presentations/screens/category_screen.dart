@@ -23,6 +23,7 @@ class CategoryScreen extends StatelessWidget {
       backgroundColor: Color(0xFF3B4254),
       appBar: AppBar(
         backgroundColor: Color(0xFF3B4254),
+        foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
         title: InkWell(
@@ -36,8 +37,12 @@ class CategoryScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          BigTextWidget(
-            text: categoryName,
+          Hero(
+            tag: categoryName,
+            child: BigTextWidget(
+              text: categoryName,
+              size: 30,
+            ),
           ),
           SizedBox(
             height: Dimensions.height45,

@@ -28,7 +28,6 @@ class CategoryRepository {
           categories.add(cat);
         }
 
-        print(categories);
         return categories;
       }
 

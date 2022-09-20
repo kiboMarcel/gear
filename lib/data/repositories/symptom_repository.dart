@@ -10,12 +10,13 @@ class SymptomRepositpory {
   SymptomRepositpory({required this.firebaseFirestore});
 
   Future<List<Symptom>> getSymptomByEquip(
-      {required String equipementName}) async {
+      {required String equipementid}) async {
     late List list;
     List<Symptom> symptomlist = [];
     try {
       QuerySnapshot symptomDoc = await symptomRef
-          .where('equipment_id', isEqualTo: equipementName)
+          .where('equipment_id', isEqualTo: equipementid)
+          .orderBy('name')
           .get();
 
       if (symptomDoc.size > 0) {
@@ -47,12 +48,12 @@ class SymptomRepositpory {
   }
 
   Future<List<Symptom>> getSymptomByFonction(
-      {required String fonctionName}) async {
+      {required String fonctionId}) async {
     late List list;
     List<Symptom> symptomlist = [];
     try {
       QuerySnapshot symptomDoc =
-          await symptomRef.where('function_id', isEqualTo: fonctionName).get();
+          await symptomRef.where('function_id', isEqualTo: fonctionId).get();
 
       if (symptomDoc.size > 0) {
         list = symptomDoc.docs

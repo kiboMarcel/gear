@@ -12,12 +12,12 @@ class CauseCubit extends Cubit<CauseState> {
   final CauseRepository causeRepository;
   CauseCubit({required this.causeRepository}) : super(CauseState.loading());
 
-  Future<void> getCause({required String symptomName}) async {
+  Future<void> getCause({required String symptomId}) async {
     emit(state.copyWith(causeStatus: CauseStatus.loading));
 
     try {
       final List<Cause> causes =
-          await causeRepository.getCause(symptomName: symptomName);
+          await causeRepository.getCause(symptomId: symptomId);
 
       emit(state.copyWith(causeStatus: CauseStatus.loaded, causes: causes));
     } on CustomError catch (e) {

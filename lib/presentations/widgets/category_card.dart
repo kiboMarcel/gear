@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CAtegoryCard extends StatelessWidget {
+class CategoryCard extends StatelessWidget {
   final String name;
   final VoidCallback onPressed;
   final Widget icon;
   final Widget? lockIcon;
-  CAtegoryCard(
+  CategoryCard(
       {Key? key,
       required this.name,
       required this.onPressed,
@@ -39,9 +39,12 @@ class CAtegoryCard extends StatelessWidget {
             SizedBox(
               height: 12,
             ),
-            Text(
-              name,
-              style: TextStyle(fontSize: 20),
+            Hero(
+              tag: name,
+              child: Text(
+                name,
+                style: TextStyle(fontSize: 20),
+              ),
             ),
             Align(
               alignment: Alignment.bottomRight,
