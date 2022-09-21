@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gear/logics/cubits/cause/cause_cubit.dart';
 import 'package:gear/presentations/screens/cause_screen.dart';
+import 'package:gear/presentations/widgets/search/search_symptom.dart';
 
 import '../../constants/enums.dart';
 import '../../logics/cubits/symptom/symptom_cubit.dart';
@@ -35,7 +36,9 @@ class _SymptomScreenState extends State<SymptomScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showSearch(context: context, delegate: SearchSymptopm());
+            },
             icon: Icon(
               Icons.search_rounded,
               size: Dimensions.iconseSize24 + 10,

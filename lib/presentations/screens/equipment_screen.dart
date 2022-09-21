@@ -6,7 +6,7 @@ import '../../logics/cubits/equipement/equipement_cubit.dart';
 import '../../logics/cubits/symptom/symptom_cubit.dart';
 import '../../utils/dimensions.dart';
 import '../widgets/card_widget.dart';
-import '../widgets/shimmer/card_widget_shimmer.dart';
+import '../widgets/search/search_equipement.dart';
 import 'symptom_screen.dart';
 
 class EquipmentScreen extends StatefulWidget {
@@ -49,7 +49,9 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showSearch(context: context, delegate: SearchEquipement());
+            },
             icon: Icon(
               Icons.search_rounded,
               size: Dimensions.iconseSize24 + 10,
@@ -58,36 +60,34 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: Dimensions.height20,
-          ),
-          Container(
-            height: 30,
-            width: Dimensions.screenWidth / 0.5,
-            margin: EdgeInsets.symmetric(vertical: 3, horizontal: 100),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
-                child: Text(
-              '${widget.categoryName} / equipement',
-              style: TextStyle(fontSize: 20),
-            )),
-          ),
-          BlocConsumer<EquipementCubit, EquipementState>(
-            listener: (context, state) {},
-            builder: (context, state) {
-              if (state.equipmentStatus == EquipmentStatus.loading) {
-                return CardWidgetShimmer(); /* Container(
-                  margin: EdgeInsets.only(top: Dimensions.height30),
-                  child: CircularProgressIndicator(),
-                ); */
-              } else if (state.equipmentStatus == EquipmentStatus.loaded) {
-                if (state.equipments.isNotEmpty) {
-                  return Expanded(
+      body: BlocConsumer<EquipementCubit, EquipementState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          if (state.equipmentStatus == EquipmentStatus.loading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state.equipmentStatus == EquipmentStatus.loaded) {
+            if (state.equipments.isNotEmpty) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: Dimensions.height20,
+                  ),
+                  Container(
+                    height: 30,
+                    width: Dimensions.screenWidth / 0.5,
+                    margin: EdgeInsets.symmetric(vertical: 3, horizontal: 100),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                        child: Text(
+                      '${widget.categoryName} / equipement',
+                      style: TextStyle(fontSize: 20),
+                    )),
+                  ),
+                  Expanded(
                     child: ListView.builder(
                       cacheExtent: 0,
                       itemBuilder: (context, index) {
@@ -108,28 +108,27 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                       },
                       itemCount: state.equipments.length,
                     ),
-                  );
-                }
-              }
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(height: 50),
-                  Image(
-                    image: AssetImage(
-                      'assets/images/empty.png',
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Rien a Afficher',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ],
               );
-            },
-          )
-        ],
+            }
+          }
+          return Column(
+            children: [
+              SizedBox(height: 50),
+              Image(
+                image: AssetImage(
+                  'assets/images/empty.png',
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Rien a Afficher',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

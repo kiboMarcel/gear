@@ -15,7 +15,7 @@ class BreakDonwCard extends StatelessWidget {
       required this.onTap,
       required this.icon,
       required this.solution,
-      this.subtitle = ''})
+      required this.subtitle})
       : super(key: key);
 
   @override
@@ -37,7 +37,7 @@ class BreakDonwCard extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
-              'Lorem ipsum dolor sit amet, consectetur aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+              subtitle,
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
           ),

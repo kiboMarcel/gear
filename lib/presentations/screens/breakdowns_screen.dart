@@ -40,6 +40,7 @@ class BreakdonwScreen extends StatelessWidget {
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: 1, horizontal: 3),
                   child: BreakDonwCard(
+                    subtitle: 'tesst',
                     solution: 'test',
                     text: 'Panne ${index + 1} ',
                     icon: Icon(Icons.insert_page_break,

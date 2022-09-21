@@ -36,51 +36,57 @@ class CauseScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(children: [
-        BlocConsumer<CauseCubit, CauseState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            if (state.causeStatus == CauseStatus.loading) {
-              return Container(
-                margin: EdgeInsets.only(top: 20),
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              );
-            } else if (state.causeStatus == CauseStatus.loaded) {
-              return Expanded(
+      body: BlocConsumer<CauseCubit, CauseState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          if (state.causeStatus == CauseStatus.loading) {
+            return Container(
+              margin: EdgeInsets.only(top: 20),
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          } else if (state.causeStatus == CauseStatus.loaded) {
+            return Column(children: [
+              Expanded(
                 child: ListView.builder(
                   itemBuilder: (context, index) {
                     return BreakDonwCard(
                       solution: state.causes[index].solution,
-                      icon: Icon(Icons.face),
+                      subtitle: state.causes[index].description,
+                      icon: Icon(
+                        Icons.health_and_safety,
+                        color: Colors.white,
+                      ),
                       onTap: () {},
                       text: state.causes[index].name,
                     );
                   },
                   itemCount: state.causes.length,
                 ),
-              );
-            }
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(height: 50),
-                Image(
-                  image: AssetImage(
-                    'assets/images/empty.png',
-                  ),
+              ),
+            ]);
+          }
+
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 50),
+              Image(
+                image: AssetImage(
+                  'assets/images/empty.png',
                 ),
-                SizedBox(height: 20),
-                Text(
-                  'Rien a Afficher',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              ],
-            );
-          },
-        ),
-      ]),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Rien a Afficher',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ],
+          );
+          ;
+        },
+      ),
     );
   }
 }

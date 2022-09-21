@@ -9,6 +9,39 @@ class SymptomRepositpory {
 
   SymptomRepositpory({required this.firebaseFirestore});
 
+  Future<List<Symptom>> getAllSymptom() async {
+    late List list;
+    List<Symptom> symptomlist = [];
+    try {
+      QuerySnapshot symptomDoc = await symptomRef.orderBy('name').get();
+      if (symptomDoc.size > 0) {
+        list = symptomDoc.docs
+            .map((docs) => {'id': docs.id, 'data': docs.data()})
+            .toList();
+
+        for (var i = 0; i < list.length; i++) {
+          Symptom symptom = Symptom.format(list[i]);
+          symptomlist.add(symptom);
+        }
+
+        return symptomlist;
+      }
+      return symptomlist;
+    } on FirebaseException catch (e) {
+      throw CustomError(
+        code: e.code,
+        message: e.message!,
+        plugin: e.plugin,
+      );
+    } catch (e) {
+      throw CustomError(
+        code: 'exeption',
+        message: e.toString(),
+        plugin: 'flutter_error/server_error',
+      );
+    }
+  }
+
   Future<List<Symptom>> getSymptomByEquip(
       {required String equipementid}) async {
     late List list;

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,11 +15,27 @@ class SymptomCubit extends Cubit<SymptomState> {
   SymptomCubit({required this.symptomRepositpory})
       : super(SymptomState.loading());
 
+  Future<void> getAllSymptom() async {
+    try {
+      final List<Symptom> allsymptom = await symptomRepositpory.getAllSymptom();
+
+      emit(state.copyWith(
+        allSymptoms: allsymptom,
+      ));
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<void> getSymptomByEquip({required String equipementid}) async {
     emit(state.copyWith(
         symptomStatus: SymptomStatus.loading, symptomsByEquipemet: []));
 
     try {
+      if (state.allSymptoms.isEmpty) {
+        getAllSymptom();
+      }
+
       final List<Symptom> symptom = await symptomRepositpory.getSymptomByEquip(
           equipementid: equipementid);
 
@@ -35,6 +53,10 @@ class SymptomCubit extends Cubit<SymptomState> {
         .copyWith(symptomStatus: SymptomStatus.loading, symptomByFonction: []));
 
     try {
+      if (state.allSymptoms.isEmpty) {
+        getAllSymptom();
+      }
+
       final List<Symptom> symptom =
           await symptomRepositpory.getSymptomByFonction(fonctionId: fonctionId);
 

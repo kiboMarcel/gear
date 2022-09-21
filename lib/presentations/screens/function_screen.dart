@@ -60,37 +60,39 @@ class _FunctionScreenState extends State<FunctionScreen> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: Dimensions.height20,
-          ),
-          Hero(
-            tag: 'categorie ${widget.index}',
-            child: Container(
-              height: 30,
-              width: Dimensions.screenWidth / 0.5,
-              margin: EdgeInsets.symmetric(vertical: 3, horizontal: 100),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
-                  child: Text(
-                '${widget.categoryName} ',
-                style: TextStyle(fontSize: 20),
-              )),
-            ),
-          ),
-          BlocConsumer<EquipmentFunctionCubit, EquipmentFunctionState>(
-            listener: (context, state) {},
-            builder: (context, state) {
-              if (state.equipFunctionStatus == EquipFunctionStatus.loading) {
-                return CardWidgetShimmer();
-              } else if (state.equipFunctionStatus ==
-                  EquipFunctionStatus.loaded) {
-                if (state.equipmentFunctions.isNotEmpty) {
-                  return Expanded(
+      body: BlocConsumer<EquipmentFunctionCubit, EquipmentFunctionState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          if (state.equipFunctionStatus == EquipFunctionStatus.loading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state.equipFunctionStatus == EquipFunctionStatus.loaded) {
+            if (state.equipmentFunctions.isNotEmpty) {
+              return Column(
+                children: [
+                  SizedBox(
+                    height: Dimensions.height20,
+                  ),
+                  Hero(
+                    tag: 'categorie ${widget.index}',
+                    child: Container(
+                      height: 30,
+                      width: Dimensions.screenWidth / 0.5,
+                      margin:
+                          EdgeInsets.symmetric(vertical: 3, horizontal: 100),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                          child: Text(
+                        '${widget.categoryName} ',
+                        style: TextStyle(fontSize: 20),
+                      )),
+                    ),
+                  ),
+                  Expanded(
                     child: ListView.builder(
                       itemBuilder: (context, index) {
                         return CardWidget(
@@ -110,28 +112,28 @@ class _FunctionScreenState extends State<FunctionScreen> {
                       },
                       itemCount: state.equipmentFunctions.length,
                     ),
-                  );
-                }
-              }
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(height: 50),
-                  Image(
-                    image: AssetImage(
-                      'assets/images/empty.png',
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Rien a Afficher',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ],
               );
-            },
-          )
-        ],
+            }
+          }
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 50),
+              Image(
+                image: AssetImage(
+                  'assets/images/empty.png',
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Rien a Afficher',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
