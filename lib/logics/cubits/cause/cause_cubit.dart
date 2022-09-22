@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import '../../../constants/enums.dart';
 import '../../../data/models/cause.dart';
@@ -8,7 +10,7 @@ import '../../../data/repositories/cause_repository.dart';
 
 part 'cause_state.dart';
 
-class CauseCubit extends Cubit<CauseState> {
+class CauseCubit extends Cubit<CauseState> with HydratedMixin {
   final CauseRepository causeRepository;
   CauseCubit({required this.causeRepository}) : super(CauseState.loading());
 
@@ -23,5 +25,15 @@ class CauseCubit extends Cubit<CauseState> {
     } on CustomError catch (e) {
       emit(state.copyWith(causeStatus: CauseStatus.error, error: e));
     }
+  }
+
+  @override
+  CauseState? fromJson(Map<String, dynamic> json) {
+    return CauseState.fromMap(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(CauseState state) {
+    return state.toMap();
   }
 }

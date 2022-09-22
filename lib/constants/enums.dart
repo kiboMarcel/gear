@@ -1,3 +1,5 @@
+enum AuthStatus { unknown, authenticated, unauthanticated, verifyEmail }
+
 enum CategoryStatus { loading, loaded, error }
 
 enum EquipmentStatus { loading, loaded, error }

@@ -1,7 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import '../../../constants/enums.dart';
 import '../../../data/models/custom_error.dart';
@@ -10,7 +11,7 @@ import '../../../data/repositories/symptom_repository.dart';
 
 part 'symptom_state.dart';
 
-class SymptomCubit extends Cubit<SymptomState> {
+class SymptomCubit extends Cubit<SymptomState> with HydratedMixin {
   final SymptomRepositpory symptomRepositpory;
   SymptomCubit({required this.symptomRepositpory})
       : super(SymptomState.loading());
@@ -67,5 +68,15 @@ class SymptomCubit extends Cubit<SymptomState> {
     } on CustomError catch (e) {
       emit(state.copyWith(symptomStatus: SymptomStatus.error, error: e));
     }
+  }
+
+  @override
+  SymptomState? fromJson(Map<String, dynamic> json) {
+    return SymptomState.fromMap(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(SymptomState state) {
+    return state.toMap();
   }
 }

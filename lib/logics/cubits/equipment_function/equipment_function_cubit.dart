@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import '../../../constants/enums.dart';
 import '../../../data/models/custom_error.dart';
@@ -8,7 +10,8 @@ import '../../../data/repositories/equipment_function_repository.dart';
 
 part 'equipment_function_state.dart';
 
-class EquipmentFunctionCubit extends Cubit<EquipmentFunctionState> {
+class EquipmentFunctionCubit extends Cubit<EquipmentFunctionState>
+    with HydratedMixin {
   final EquipementFunctionRepository equipementFunctionRepository;
   EquipmentFunctionCubit({required this.equipementFunctionRepository})
       : super(EquipmentFunctionState.loading());
@@ -28,5 +31,15 @@ class EquipmentFunctionCubit extends Cubit<EquipmentFunctionState> {
       emit(state.copyWith(
           equipFunctionStatus: EquipFunctionStatus.error, error: e));
     }
+  }
+
+  @override
+  EquipmentFunctionState? fromJson(Map<String, dynamic> json) {
+    return EquipmentFunctionState.fromMap(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(EquipmentFunctionState state) {
+    return state.toMap();
   }
 }

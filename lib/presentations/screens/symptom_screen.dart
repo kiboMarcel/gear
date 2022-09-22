@@ -120,9 +120,8 @@ class _SymptomScreenState extends State<SymptomScreen> {
               }
             }
             return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 50),
+                SizedBox(height: 80),
                 Image(
                   image: AssetImage(
                     'assets/images/empty.png',
@@ -130,7 +129,7 @@ class _SymptomScreenState extends State<SymptomScreen> {
                 ),
                 SizedBox(height: 20),
                 Text(
-                  'Rien a Afficher',
+                  'Rien à afficher',
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ],

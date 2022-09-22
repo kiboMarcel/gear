@@ -128,7 +128,7 @@ class _FunctionScreenState extends State<FunctionScreen> {
               ),
               SizedBox(height: 20),
               Text(
-                'Rien a Afficher',
+                'Rien à afficher',
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ],

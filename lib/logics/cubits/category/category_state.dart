@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 part of 'category_cubit.dart';
 
 class CategoryState extends Equatable {
@@ -36,4 +38,29 @@ class CategoryState extends Equatable {
       error: error ?? this.error,
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'categoryStatus': categoryStatus.toString(),
+      'categories': categories.map((x) => x.toMap()).toList(),
+      'error': error.toString(),
+    };
+  }
+
+  factory CategoryState.fromMap(Map<String, dynamic> map) {
+    return CategoryState(
+      categoryStatus: map['categoryStatus'],
+      categories: List<Category>.from(
+        (map['categories'] as List<int>).map<Category>(
+          (x) => Category.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+      error: map['error'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory CategoryState.fromJson(String source) =>
+      CategoryState.fromMap(json.decode(source) as Map<String, dynamic>);
 }

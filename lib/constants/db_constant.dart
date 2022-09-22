@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-final catRef = FirebaseFirestore.instance.collection('categories');
-
 final usersRef = FirebaseFirestore.instance.collection('subscriber');
+
+final catRef = FirebaseFirestore.instance.collection('categories');
 
 final paymentRef = FirebaseFirestore.instance.collection('config');
 
