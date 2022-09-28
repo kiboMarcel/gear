@@ -6,7 +6,6 @@ import 'package:gear/logics/cubits/equipment_function/equipment_function_cubit.d
 import '../../logics/cubits/symptom/symptom_cubit.dart';
 import '../../utils/dimensions.dart';
 import '../widgets/card_widget.dart';
-import '../widgets/shimmer/card_widget_shimmer.dart';
 import 'symptom_screen.dart';
 
 class FunctionScreen extends StatefulWidget {

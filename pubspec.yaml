@@ -22,6 +22,7 @@ dependencies:
   get: ^4.6.5
   hydrated_bloc: ^8.1.0
   path_provider: ^2.0.11
+  shared_preferences: ^2.0.15
   shimmer: ^2.0.0
 
 dev_dependencies:
@@ -42,7 +43,6 @@ flutter:
     - assets/images/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
-
   # fonts:
   #   - family: Schyler
   #     fonts:

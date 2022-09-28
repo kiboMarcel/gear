@@ -6,23 +6,13 @@ import 'package:equatable/equatable.dart';
 class User extends Equatable {
   static const String defaultNationality = 'Togo';
   final String id;
-  final String name;
-  final String email;
-  final Map<String, dynamic> memberShip;
-  final String number;
-  final String nationality;
-  final DateTime startingDate;
-  final DateTime endingDate;
+  final String username;
+  final String password;
 
   User({
     required this.id,
-    required this.name,
-    required this.email,
-    required this.memberShip,
-    required this.number,
-    required this.startingDate,
-    required this.endingDate,
-    this.nationality = 'Togo',
+    required this.username,
+    required this.password,
   });
 
   factory User.fromDoc(DocumentSnapshot userDoc) {
@@ -30,26 +20,36 @@ class User extends Equatable {
 
     return User(
       id: userDoc.id,
-      name: userData!['name'],
-      email: userData['email'],
-      memberShip: userData['membership'],
-      number: userData['number'],
-      nationality: userData['nationality'],
-      startingDate: userData['starting_date'].toDate(),
-      endingDate: userData['ending_date'].toDate(),
+      username: userData!['name'],
+      password: userData['email'],
+    );
+  }
+
+  factory User.format(element) {
+    late String id;
+    late String username;
+    late String password;
+
+    try {
+      id = element['id'];
+      username = element['data']['username'];
+      password = element['data']['password'];
+    } catch (e) {
+      throw '$e';
+    }
+
+    return User(
+      id: id,
+      username: username,
+      password: password,
     );
   }
 
   factory User.intialUser() {
     return User(
       id: '',
-      name: '',
-      email: '',
-      memberShip: {},
-      number: '',
-      nationality: '',
-      startingDate: DateTime.now(),
-      endingDate: DateTime.now(),
+      username: '',
+      password: '',
     );
   }
 
@@ -57,32 +57,22 @@ class User extends Equatable {
   List<Object> get props {
     return [
       id,
-      name,
-      email,
-      memberShip,
-      number,
-      nationality,
-      startingDate,
-      endingDate,
+      username,
+      password,
     ];
   }
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, memberShip: $memberShip, number: $number, nationality: $nationality, startingDate: $startingDate, endingDate: $endingDate)';
+    return 'User(id: $id, username: $username, password: $password)';
   }
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
 
     result.addAll({'id': id});
-    result.addAll({'name': name});
-    result.addAll({'email': email});
-    result.addAll({'memberShip': memberShip});
-    result.addAll({'number': number});
-    result.addAll({'nationality': nationality});
-    result.addAll({'startingDate': startingDate.millisecondsSinceEpoch});
-    result.addAll({'endingDate': endingDate.millisecondsSinceEpoch});
+    result.addAll({'name': username});
+    result.addAll({'email': password});
 
     return result;
   }
@@ -90,13 +80,8 @@ class User extends Equatable {
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
       id: map['id'] ?? '',
-      name: map['name'] ?? '',
-      email: map['email'] ?? '',
-      memberShip: map['memberShip'] ?? '',
-      number: map['number'] ?? '',
-      nationality: map['nationality'] ?? '',
-      startingDate: DateTime.fromMillisecondsSinceEpoch(map['startingDate']),
-      endingDate: DateTime.fromMillisecondsSinceEpoch(map['endingDate']),
+      username: map['username'] ?? '',
+      password: map['password'] ?? '',
     );
   }
 

@@ -23,7 +23,7 @@ class EquipmentFunction extends Equatable {
       name = element['data']['name'];
       catId = element['data']['cat_id'];
     } catch (e) {
-      print(e);
+      rethrow;
     }
 
     return EquipmentFunction(

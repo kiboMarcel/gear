@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' as fbauth;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants/db_constant.dart';
 import '../models/custom_error.dart';
@@ -7,40 +7,41 @@ import '../models/user_model.dart';
 
 class AuthRepository {
   final FirebaseFirestore firebaseFirestore;
-  final fbauth.FirebaseAuth firebaseAuth;
 
   AuthRepository({
     required this.firebaseFirestore,
-    required this.firebaseAuth,
   });
 
-  Stream<fbauth.User?> get user => firebaseAuth.userChanges();
+  int? initScreen;
 
-  Future<void> signup(
-      {required String name,
-      required String email,
-      required String password}) async {
+  Future<int?> checkStatus() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    initScreen = preferences.getInt('initScreen');
+    return initScreen;
+  }
+
+  Future<User> signin(
+      {required String username, required String password}) async {
+    List list = [];
     try {
-      final fbauth.UserCredential userCredential = await firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
+      final QuerySnapshot userDoc =
+          await usersRef.where('username', isEqualTo: username).get();
 
-      final signedInUser = userCredential.user!;
+      if (userDoc.size > 0) {
+        list = userDoc.docs
+            .map((doc) => {"id": doc.id, "data": doc.data()})
+            .toList();
 
-      //signedInUser.sendEmailVerification();
-      var today = DateTime.now();
-      var oneMonthFromNow = today.add(Duration(days: 30));
+        User user = User.format(list[0]);
 
-      await usersRef.doc(signedInUser.uid).set({
-        'name': name,
-        'email': email,
-        'membership': {'chapter': {}, 'classe': []},
-        'number': '',
-        'nationality': User.defaultNationality,
-        'starting_date': DateTime.now(),
-        'ending_date': oneMonthFromNow,
-      });
-    } on fbauth.FirebaseAuthException catch (e) {
-      throw CustomError(code: e.code, message: e.message!, plugin: e.plugin);
+        if (user.password != password) {
+          throw 'Mot de passe Incorrect.';
+        }
+
+        return user;
+      } else {
+        throw 'Cet Utilisateur N\'existe pas.';
+      }
     } catch (e) {
       throw CustomError(
           code: 'Exception',
@@ -49,21 +50,5 @@ class AuthRepository {
     }
   }
 
-  Future<void> signin({required String email, required String password}) async {
-    try {
-      await firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-    } on fbauth.FirebaseAuthException catch (e) {
-      throw CustomError(code: e.code, message: e.message!, plugin: e.plugin);
-    } catch (e) {
-      throw CustomError(
-          code: 'Exception',
-          message: e.toString(),
-          plugin: 'flutter_error/server_error');
-    }
-  }
-
-  Future<void> signout() async {
-    await firebaseAuth.signOut();
-  }
+  Future<void> signout() async {}
 }

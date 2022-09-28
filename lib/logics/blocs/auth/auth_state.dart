@@ -2,29 +2,25 @@ part of 'auth_bloc.dart';
 
 class AuthState extends Equatable {
   final AuthStatus authStatus;
-  final fbauth.User? user;
   AuthState({
     required this.authStatus,
-    this.user,
   });
 
   @override
-  List<Object?> get props => [authStatus, user];
+  List<Object?> get props => [authStatus];
 
   factory AuthState.unknown() {
     return AuthState(authStatus: AuthStatus.unknown);
   }
 
   @override
-  String toString() => 'AuthState(authStatus: $authStatus, user: $user)';
+  String toString() => 'AuthState(authStatus: $authStatus)';
 
   AuthState copyWith({
     AuthStatus? authStatus,
-    fbauth.User? user,
   }) {
     return AuthState(
       authStatus: authStatus ?? this.authStatus,
-      user: user ?? this.user,
     );
   }
 /* 

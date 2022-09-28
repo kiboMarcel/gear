@@ -6,19 +6,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'data/repositories/auth_repository.dart';
 import 'data/repositories/category_repository.dart';
 import 'data/repositories/cause_repository.dart';
 import 'data/repositories/equipements_repository.dart';
 import 'data/repositories/equipment_function_repository.dart';
 import 'data/repositories/symptom_repository.dart';
+import 'logics/blocs/auth/auth_bloc.dart';
 import 'logics/cubits/category/category_cubit.dart';
 import 'logics/cubits/cause/cause_cubit.dart';
 import 'logics/cubits/equipement/equipement_cubit.dart';
 import 'logics/cubits/equipment_function/equipment_function_cubit.dart';
+import 'logics/cubits/signin/signin_cubit.dart';
 import 'logics/cubits/symptom/symptom_cubit.dart';
 import 'presentations/screens/breakdowns_screen.dart';
 import 'presentations/screens/home_screen.dart';
 import 'presentations/screens/operation_screen.dart';
+import 'presentations/screens/login_screen.dart';
+import 'presentations/screens/splash_screen.dart';
+
+int? initScreen;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,6 +55,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
+        RepositoryProvider<AuthRepository>(
+          create: (context) => AuthRepository(
+            firebaseFirestore: FirebaseFirestore.instance,
+          ),
+        ),
         RepositoryProvider<CategoryRepository>(
           create: (context) => CategoryRepository(
             firebaseFirestore: FirebaseFirestore.instance,
@@ -76,6 +88,16 @@ class MyApp extends StatelessWidget {
       ],
       child: MultiBlocProvider(
         providers: [
+          BlocProvider<AuthBloc>(
+            create: (context) => AuthBloc(
+              authRepository: context.read<AuthRepository>(),
+            ),
+          ),
+          BlocProvider<SigninCubit>(
+            create: (context) => SigninCubit(
+              authRepository: context.read<AuthRepository>(),
+            ),
+          ),
           BlocProvider<CategoryCubit>(
             create: (context) => CategoryCubit(
               categoryRepository: context.read<CategoryRepository>(),
@@ -109,11 +131,16 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             useMaterial3: true,
             primarySwatch: Colors.blue,
+            textTheme: TextTheme(
+              subtitle1: TextStyle(color: Colors.white),
+            ),
           ),
-          home: HomeScreen(),
+          home: SplashScreen(), //HomeScreen(),
           routes: {
             OperationScreen.id: (context) => OperationScreen(),
             BreakdonwScreen.id: (context) => BreakdonwScreen(),
+            LoginScreen.id: (context) => LoginScreen(),
+            HomeScreen.id: (context) => HomeScreen(),
           },
         ),
       ),

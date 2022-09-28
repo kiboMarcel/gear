@@ -8,13 +8,8 @@ abstract class AuthEvent extends Equatable {
 }
 
 class AuthStateChangedEvent extends AuthEvent {
-  final fbauth.User? user;
-  AuthStateChangedEvent({
-    this.user,
-  });
-
   @override
-  List<Object?> get props => [user];
+  List<Object?> get props => [];
 }
 
 class SignOutRequestEvent extends AuthEvent {}

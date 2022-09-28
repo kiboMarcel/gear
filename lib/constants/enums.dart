@@ -1,4 +1,6 @@
-enum AuthStatus { unknown, authenticated, unauthanticated, verifyEmail }
+enum AuthStatus { unknown, authenticated, unauthanticated }
+
+enum SignStatus { initial, submiting, success, error }
 
 enum CategoryStatus { loading, loaded, error }
 
