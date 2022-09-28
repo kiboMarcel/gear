@@ -11,7 +11,7 @@ import '../../../data/repositories/symptom_repository.dart';
 
 part 'symptom_state.dart';
 
-class SymptomCubit extends Cubit<SymptomState> with HydratedMixin {
+class SymptomCubit extends HydratedCubit<SymptomState> {
   final SymptomRepositpory symptomRepositpory;
   SymptomCubit({required this.symptomRepositpory})
       : super(SymptomState.loading());
@@ -29,8 +29,8 @@ class SymptomCubit extends Cubit<SymptomState> with HydratedMixin {
   }
 
   Future<void> getSymptomByEquip({required String equipementid}) async {
-    emit(state.copyWith(
-        symptomStatus: SymptomStatus.loading, symptomsByEquipemet: []));
+    /* emit(state.copyWith(
+        symptomStatus: SymptomStatus.loading, symptomsByEquipemet: [])); */
 
     try {
       if (state.allSymptoms.isEmpty) {

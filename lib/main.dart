@@ -115,6 +115,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
           BlocProvider<SymptomCubit>(
+            lazy: false,
             create: (context) => SymptomCubit(
               symptomRepositpory: context.read<SymptomRepositpory>(),
             ),

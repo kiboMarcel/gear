@@ -40,9 +40,6 @@ class Symptom extends Equatable {
   @override
   List<Object> get props => [id, name, fonctionnementName, equipementName];
 
-  @override
-  bool get stringify => true;
-
   Symptom copyWith({
     String? id,
     String? name,
@@ -56,6 +53,9 @@ class Symptom extends Equatable {
       equipementName: equipementName ?? this.equipementName,
     );
   }
+
+  @override
+  bool get stringify => true;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
 part of 'symptom_cubit.dart';
 
 class SymptomState extends Equatable {
@@ -28,13 +27,15 @@ class SymptomState extends Equatable {
   }
 
   @override
-  List<Object> get props => [
-        symptomStatus,
-        allSymptoms,
-        symptomsByEquipemet,
-        symptomByFonction,
-        error
-      ];
+  List<Object> get props {
+    return [
+      symptomStatus,
+      allSymptoms,
+      symptomsByEquipemet,
+      symptomByFonction,
+      error,
+    ];
+  }
 
   @override
   bool get stringify => true;

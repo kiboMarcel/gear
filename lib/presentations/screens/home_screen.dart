@@ -152,6 +152,9 @@ class MySearchDelegate extends SearchDelegate {
           color: Colors.white,
         ),
       ),
+      textTheme: TextTheme(
+        subtitle1: TextStyle(color: Colors.white),
+      ),
       inputDecorationTheme: theme.inputDecorationTheme.copyWith(
         iconColor: Colors.white,
         border: InputBorder.none,
@@ -161,8 +164,8 @@ class MySearchDelegate extends SearchDelegate {
           color: Colors.white,
         ),
         hintStyle: TextStyle(
-            //color: Colors.white,
-            ),
+          color: Colors.white38,
+        ),
       ),
     );
   }
@@ -173,7 +176,7 @@ class MySearchDelegate extends SearchDelegate {
       );
 
   @override
-  String get searchFieldLabel => 'chercher';
+  String get searchFieldLabel => 'Chercher...';
 
   @override
   Widget? buildLeading(BuildContext context) {

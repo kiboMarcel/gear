@@ -6,14 +6,6 @@ import '../../screens/symptom_screen.dart';
 
 class SearchEquipement extends SearchDelegate {
   @override
-  /* ThemeData appBarTheme(BuildContext context) {
-    return ThemeData(
-      appBarTheme: const AppBarTheme(
-        color: Color(0xFF3B4254),
-      ),
-    );
-  } */
-
   ThemeData appBarTheme(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return theme.copyWith(
@@ -24,6 +16,9 @@ class SearchEquipement extends SearchDelegate {
           color: Colors.white,
         ),
       ),
+      textTheme: TextTheme(
+        subtitle1: TextStyle(color: Colors.white),
+      ),
       inputDecorationTheme: theme.inputDecorationTheme.copyWith(
         iconColor: Colors.white,
         border: InputBorder.none,
@@ -33,8 +28,8 @@ class SearchEquipement extends SearchDelegate {
           color: Colors.white,
         ),
         hintStyle: TextStyle(
-            //color: Colors.white,
-            ),
+          color: Colors.white38,
+        ),
       ),
     );
   }
@@ -45,7 +40,7 @@ class SearchEquipement extends SearchDelegate {
       );
 
   @override
-  String get searchFieldLabel => 'chercher';
+  String get searchFieldLabel => 'Chercher...';
 
   @override
   Widget? buildLeading(BuildContext context) {

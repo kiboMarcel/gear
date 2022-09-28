@@ -115,8 +115,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       alignment: Alignment.bottomRight,
                       child: TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(
-                              context, 'ResetPasswordScreen.id');
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text('Contacter Votre Admin'),
+                                  content: Text(
+                                      'Veuillez Contactez votre Adminstrateur pour changer de mot de passe'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text('OK'),
+                                    ),
+                                  ],
+                                );
+                              });
                         },
                         style: TextButton.styleFrom(
                           textStyle: TextStyle(
