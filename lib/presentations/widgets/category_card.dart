@@ -43,7 +43,7 @@ class CategoryCard extends StatelessWidget {
               tag: name,
               child: Text(
                 name,
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 20, color: Colors.white),
               ),
             ),
             Align(

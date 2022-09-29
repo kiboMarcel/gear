@@ -119,10 +119,12 @@ class _FunctionScreenState extends State<FunctionScreen> {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 50),
-              Image(
-                image: AssetImage(
-                  'assets/images/empty.png',
+              Opacity(
+                opacity: 0.5,
+                child: Image(
+                  image: AssetImage(
+                    'assets/images/empty.png',
+                  ),
                 ),
               ),
               SizedBox(height: 20),

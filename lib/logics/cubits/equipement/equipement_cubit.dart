@@ -10,7 +10,7 @@ import '../../../data/repositories/equipements_repository.dart';
 
 part 'equipement_state.dart';
 
-class EquipementCubit extends Cubit<EquipementState> with HydratedMixin {
+class EquipementCubit extends Cubit<EquipementState> {
   final EquipementRepository equipementRepository;
   EquipementCubit({required this.equipementRepository})
       : super(EquipementState.loading());

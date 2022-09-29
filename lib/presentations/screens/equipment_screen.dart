@@ -70,13 +70,10 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: Dimensions.height20,
-                  ),
                   Container(
                     height: 30,
                     width: Dimensions.screenWidth / 0.5,
-                    margin: EdgeInsets.symmetric(vertical: 3, horizontal: 100),
+                    margin: EdgeInsets.symmetric(vertical: 30, horizontal: 100),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
@@ -114,11 +111,14 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
             }
           }
           return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 50),
-              Image(
-                image: AssetImage(
-                  'assets/images/empty.png',
+              Opacity(
+                opacity: 0.5,
+                child: Image(
+                  image: AssetImage(
+                    'assets/images/empty.png',
+                  ),
                 ),
               ),
               SizedBox(height: 20),

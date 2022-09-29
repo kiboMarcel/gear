@@ -10,8 +10,7 @@ import '../../../data/repositories/equipment_function_repository.dart';
 
 part 'equipment_function_state.dart';
 
-class EquipmentFunctionCubit extends Cubit<EquipmentFunctionState>
-    with HydratedMixin {
+class EquipmentFunctionCubit extends Cubit<EquipmentFunctionState> {
   final EquipementFunctionRepository equipementFunctionRepository;
   EquipmentFunctionCubit({required this.equipementFunctionRepository})
       : super(EquipmentFunctionState.loading());

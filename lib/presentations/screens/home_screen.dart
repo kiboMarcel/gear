@@ -85,6 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         name: ' ${state.categories[index].name}',
                         icon: Icon(
                           Icons.category_outlined,
+                          color: Colors.white,
                           size: 45,
                         ),
                         onPressed: () {

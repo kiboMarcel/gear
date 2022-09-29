@@ -10,7 +10,7 @@ import '../../../data/repositories/cause_repository.dart';
 
 part 'cause_state.dart';
 
-class CauseCubit extends Cubit<CauseState> with HydratedMixin {
+class CauseCubit extends Cubit<CauseState> {
   final CauseRepository causeRepository;
   CauseCubit({required this.causeRepository}) : super(CauseState.loading());
 
@@ -25,15 +25,5 @@ class CauseCubit extends Cubit<CauseState> with HydratedMixin {
     } on CustomError catch (e) {
       emit(state.copyWith(causeStatus: CauseStatus.error, error: e));
     }
-  }
-
-  @override
-  CauseState? fromJson(Map<String, dynamic> json) {
-    return CauseState.fromMap(json);
-  }
-
-  @override
-  Map<String, dynamic>? toJson(CauseState state) {
-    return state.toMap();
   }
 }

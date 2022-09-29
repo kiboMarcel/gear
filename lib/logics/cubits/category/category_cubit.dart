@@ -10,7 +10,7 @@ import '../../../data/repositories/category_repository.dart';
 
 part 'category_state.dart';
 
-class CategoryCubit extends Cubit<CategoryState> with HydratedMixin {
+class CategoryCubit extends Cubit<CategoryState> {
   final CategoryRepository categoryRepository;
   CategoryCubit({required this.categoryRepository})
       : super(CategoryState.loading());

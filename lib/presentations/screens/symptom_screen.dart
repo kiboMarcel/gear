@@ -48,13 +48,9 @@ class _SymptomScreenState extends State<SymptomScreen> {
         ],
       ),
       body: Column(children: [
-        SizedBox(
-          height: Dimensions.height20,
-        ),
         Container(
-          height: 30,
           width: Dimensions.screenWidth / 0.5,
-          margin: EdgeInsets.symmetric(vertical: 3, horizontal: 100),
+          margin: EdgeInsets.symmetric(vertical: 30, horizontal: 100),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
@@ -120,11 +116,14 @@ class _SymptomScreenState extends State<SymptomScreen> {
               }
             }
             return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 80),
-                Image(
-                  image: AssetImage(
-                    'assets/images/empty.png',
+                Opacity(
+                  opacity: 0.5,
+                  child: Image(
+                    image: AssetImage(
+                      'assets/images/empty.png',
+                    ),
                   ),
                 ),
                 SizedBox(height: 20),

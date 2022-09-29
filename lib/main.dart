@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -36,7 +37,10 @@ void main() async {
 
   HydratedBlocOverrides.runZoned(
     () {
-      runApp(MyApp());
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+          .then((_) {
+        runApp(MyApp());
+      });
     },
     storage: storage,
   );

@@ -40,8 +40,10 @@ class AuthRepository {
 
         return user;
       } else {
-        throw 'Cet Utilisateur N\'existe pas.';
+        throw 'Verifier Votre Nom d\'utilisateur ou votre connection Internet.';
       }
+    } on Exception {
+      rethrow;
     } catch (e) {
       throw CustomError(
           code: 'Exception',
