@@ -43,7 +43,7 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
         title: InkWell(
           onTap: () {},
           child: Text(
-            'App Name',
+            'Equipement',
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -80,7 +80,8 @@ class _EquipmentScreenState extends State<EquipmentScreen> {
                     ),
                     child: Center(
                         child: Text(
-                      '${widget.categoryName} / equipement',
+                      overflow: TextOverflow.fade,
+                      widget.categoryName,
                       style: TextStyle(fontSize: 20),
                     )),
                   ),

@@ -41,7 +41,7 @@ class CategoryScreen extends StatelessWidget {
             tag: categoryName,
             child: BigTextWidget(
               text: categoryName,
-              size: 30,
+              size: 25,
             ),
           ),
           SizedBox(

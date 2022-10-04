@@ -20,23 +20,20 @@ class Cause extends Equatable {
   factory Cause.format(element) {
     late String id;
     late String name;
-    late String description;
     late String solution;
     late String symptomeName;
     try {
       id = element['id'];
       name = element['data']['name'];
-      description = element['data']['description'];
       solution = element['data']['solution'];
       symptomeName = element['data']['symptom_id'];
     } catch (e) {
-      rethrow;
+      print(e);
     }
 
     return Cause(
       id: id,
       name: name,
-      description: description,
       solution: solution,
       symptomeName: symptomeName,
     );

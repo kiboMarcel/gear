@@ -20,10 +20,12 @@ class CauseRepository {
         list = symptomDocs.docs
             .map((docs) => {'id': docs.id, 'data': docs.data()})
             .toList();
+
         for (var i = 0; i < list.length; i++) {
           Cause cause = Cause.format(list[i]);
           causes.add(cause);
         }
+
         return causes;
       }
       throw 'CAUSES NOT FOUND';

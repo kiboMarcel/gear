@@ -41,10 +41,11 @@ class CategoryCard extends StatelessWidget {
             ),
             Hero(
               tag: name,
-              child: Text(
-                name,
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
+              child: Text(name,
+                  overflow: TextOverflow.fade,
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  maxLines: 1,
+                  softWrap: false),
             ),
             Align(
               alignment: Alignment.bottomRight,

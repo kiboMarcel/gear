@@ -34,13 +34,6 @@ class BreakDonwCard extends StatelessWidget {
             ),
           ),
           Divider(indent: Dimensions.widtht30),
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              subtitle,
-              style: TextStyle(fontSize: 18, color: Colors.white),
-            ),
-          ),
           SizedBox(
             height: Dimensions.height10,
           ),

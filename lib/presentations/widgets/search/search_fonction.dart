@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gear/logics/cubits/equipement/equipement_cubit.dart';
 
+import '../../../logics/cubits/equipment_function/equipment_function_cubit.dart';
 import '../../../logics/cubits/symptom/symptom_cubit.dart';
 import '../../screens/symptom_screen.dart';
 
-class SearchEquipement extends SearchDelegate {
+class SearchFonction extends SearchDelegate {
   @override
   ThemeData appBarTheme(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -66,8 +67,9 @@ class SearchEquipement extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    var equipments = context.read<EquipementCubit>().state.equipments;
-    List result = search(equipments: equipments, query: query);
+    var fonctionsList =
+        context.read<EquipmentFunctionCubit>().state.equipmentFunctions;
+    List result = search(equipmentFunctions: fonctionsList, query: query);
     return Container(
       color: Color(0xFF3B4254),
       child: ListView.builder(
@@ -80,7 +82,7 @@ class SearchEquipement extends SearchDelegate {
               onTap: () {
                 context
                     .read<SymptomCubit>()
-                    .getSymptomByEquip(equipementid: result[index].id);
+                    .getSymptomByFonction(fonctionId: result[index].id);
 
                 Navigator.push(
                   context,
@@ -102,8 +104,9 @@ class SearchEquipement extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    var equipments = context.read<EquipementCubit>().state.equipments;
-    List result = search(equipments: equipments, query: query);
+    var fonctionsList =
+        context.read<EquipmentFunctionCubit>().state.equipmentFunctions;
+    List result = search(equipmentFunctions: fonctionsList, query: query);
     return Container(
       color: Color(0xFF3B4254),
       child: ListView.builder(
@@ -116,7 +119,7 @@ class SearchEquipement extends SearchDelegate {
               onTap: () {
                 context
                     .read<SymptomCubit>()
-                    .getSymptomByEquip(equipementid: result[index].id);
+                    .getSymptomByFonction(fonctionId: result[index].id);
 
                 Navigator.push(
                   context,
@@ -136,15 +139,15 @@ class SearchEquipement extends SearchDelegate {
     );
   }
 
-  List search({required List equipments, required String query}) {
+  List search({required List equipmentFunctions, required String query}) {
     List result = [];
 
-    for (var i = 0; i < equipments.length; i++) {
-      var name = equipments[i].name.toLowerCase();
+    for (var i = 0; i < equipmentFunctions.length; i++) {
+      var name = equipmentFunctions[i].name.toLowerCase();
       var quer = query.toLowerCase();
       if (quer.toString().isNotEmpty) {
         if (name.contains(quer)) {
-          result.add(equipments[i]);
+          result.add(equipmentFunctions[i]);
         }
       }
     }

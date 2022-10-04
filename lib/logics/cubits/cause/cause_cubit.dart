@@ -20,7 +20,7 @@ class CauseCubit extends Cubit<CauseState> {
     try {
       final List<Cause> causes =
           await causeRepository.getCause(symptomId: symptomId);
-
+      print(causes);
       emit(state.copyWith(causeStatus: CauseStatus.loaded, causes: causes));
     } on CustomError catch (e) {
       emit(state.copyWith(causeStatus: CauseStatus.error, error: e));

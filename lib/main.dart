@@ -134,7 +134,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Industry',
           theme: ThemeData(
-            useMaterial3: true,
+            //useMaterial3: true,
             primarySwatch: Colors.blue,
             textTheme: TextTheme(
               subtitle1: TextStyle(color: Colors.white),

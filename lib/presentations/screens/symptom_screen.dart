@@ -49,6 +49,7 @@ class _SymptomScreenState extends State<SymptomScreen> {
       ),
       body: Column(children: [
         Container(
+          height: 30,
           width: Dimensions.screenWidth / 0.5,
           margin: EdgeInsets.symmetric(vertical: 30, horizontal: 100),
           decoration: BoxDecoration(
@@ -57,9 +58,9 @@ class _SymptomScreenState extends State<SymptomScreen> {
           ),
           child: Center(
               child: Text(
-            'symptom',
+            'Symptom',
             style: TextStyle(fontSize: 20),
-          )),
+          ),),
         ),
         BlocConsumer<SymptomCubit, SymptomState>(
           listener: (context, state) {},

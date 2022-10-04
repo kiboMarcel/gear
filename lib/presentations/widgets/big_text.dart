@@ -14,6 +14,7 @@ class BigTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
+      overflow: TextOverflow.fade,
       text,
       style: TextStyle(fontSize: size, color: color),
     );
