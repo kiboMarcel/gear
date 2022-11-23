@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 150),
                     Center(
                       child: Text(
-                        'App Name',
+                        'BB-Maint',
                         style: TextStyle(
                           fontSize: 30,
                           color: Colors.white,

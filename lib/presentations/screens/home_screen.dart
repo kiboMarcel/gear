@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: InkWell(
           onTap: () => _scrollController.jumpTo(0),
           child: Text(
-            'App Name',
+            'BB-Maint',
             style: TextStyle(color: Colors.white),
           ),
         ),

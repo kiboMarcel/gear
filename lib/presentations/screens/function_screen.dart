@@ -45,7 +45,7 @@ class _FunctionScreenState extends State<FunctionScreen> {
         title: InkWell(
           onTap: () {},
           child: Text(
-            'App Name',
+            'BB-Maint',
             style: TextStyle(color: Colors.white),
           ),
         ),

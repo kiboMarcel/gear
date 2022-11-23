@@ -29,7 +29,7 @@ class CategoryScreen extends StatelessWidget {
         title: InkWell(
           onTap: () {},
           child: Text(
-            'App Name',
+            'BB-Maint',
             style: TextStyle(color: Colors.white),
           ),
         ),

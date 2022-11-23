@@ -30,7 +30,7 @@ class _SymptomScreenState extends State<SymptomScreen> {
         title: InkWell(
           onTap: () {},
           child: Text(
-            'App Name',
+            'BB-Maint',
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -57,10 +57,11 @@ class _SymptomScreenState extends State<SymptomScreen> {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(
-              child: Text(
-            'Symptom',
-            style: TextStyle(fontSize: 20),
-          ),),
+            child: Text(
+              'Symptom',
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
         ),
         BlocConsumer<SymptomCubit, SymptomState>(
           listener: (context, state) {},
