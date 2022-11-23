@@ -37,12 +37,9 @@ class CategoryScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Hero(
-            tag: categoryName,
-            child: BigTextWidget(
-              text: categoryName,
-              size: 25,
-            ),
+          BigTextWidget(
+            text: categoryName,
+            size: 25,
           ),
           SizedBox(
             height: Dimensions.height45,

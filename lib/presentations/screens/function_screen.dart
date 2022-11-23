@@ -88,10 +88,11 @@ class _FunctionScreenState extends State<FunctionScreen> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Center(
-                          child: Text(
-                        '${widget.categoryName} ',
-                        style: TextStyle(fontSize: 20),
-                      )),
+                        child: Text(
+                          '${widget.categoryName} ',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ),
                     ),
                   ),
                   Expanded(
